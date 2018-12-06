@@ -8,4 +8,5 @@
     <string name="edit">EDIT</string>
     <string name="delete">DELETE</string>
     <string name="done">DONE</string>
+    <string name="add">ADD</string>
 </resources>

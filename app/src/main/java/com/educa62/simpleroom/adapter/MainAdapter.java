@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.educa62.simpleroom.db.Constant;
 import com.educa62.simpleroom.R;
 import com.educa62.simpleroom.entity.Teams;
-import com.educa62.simpleroom.ui.DetailActivity;
+import com.educa62.simpleroom.ui.AddDetailActivity;
 
 import java.util.List;
 
@@ -48,7 +48,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
                 bundle.putString(Constant.TAG_WEBSITE, teamsList.get(position).getWebsite_());
                 bundle.putString(Constant.TAG_GENDER, teamsList.get(position).getGender_());
                 bundle.putString(Constant.TAG_COUNTRY, teamsList.get(position).getCountry_());
-                mainContext.startActivity(new Intent(mainContext, DetailActivity.class).putExtras(bundle));
+                mainContext.startActivity(new Intent(mainContext, AddDetailActivity.class).putExtras(bundle));
             }
         });
     }
