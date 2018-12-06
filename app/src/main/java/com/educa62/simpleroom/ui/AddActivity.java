@@ -1,4 +1,4 @@
-package com.educa62.simpleroom;
+package com.educa62.simpleroom.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
+
+import com.educa62.simpleroom.db.Constant;
+import com.educa62.simpleroom.R;
 
 public class AddActivity extends AppCompatActivity implements View.OnClickListener {
 

@@ -1,4 +1,4 @@
-package com.educa62.simpleroom;
+package com.educa62.simpleroom.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -6,6 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.educa62.simpleroom.db.Constant;
+import com.educa62.simpleroom.db.FootballDatabase;
+import com.educa62.simpleroom.R;
+import com.educa62.simpleroom.entity.Teams;
 
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
 

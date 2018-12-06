@@ -1,4 +1,4 @@
-package com.educa62.simpleroom;
+package com.educa62.simpleroom.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -11,6 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.educa62.simpleroom.db.Constant;
+import com.educa62.simpleroom.R;
+import com.educa62.simpleroom.entity.Teams;
+import com.educa62.simpleroom.ui.DetailActivity;
+
 import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
@@ -19,7 +24,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainHolder> {
     private final List<Teams> teamsList;
     private Bundle bundle;
 
-    MainAdapter(Context mainContext, List<Teams> teamsList) {
+    public MainAdapter(Context mainContext, List<Teams> teamsList) {
         this.mainContext = mainContext;
         this.teamsList = teamsList;
     }

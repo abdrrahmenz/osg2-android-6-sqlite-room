@@ -1,4 +1,4 @@
-package com.educa62.simpleroom;
+package com.educa62.simpleroom.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.educa62.simpleroom.db.Constant;
+import com.educa62.simpleroom.db.FootballDatabase;
+import com.educa62.simpleroom.adapter.MainAdapter;
+import com.educa62.simpleroom.R;
+import com.educa62.simpleroom.entity.Teams;
 
 import java.util.ArrayList;
 import java.util.List;
