@@ -43,7 +43,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/year"
                     android:inputType="number"
-                    android:lines="1" />
+                    android:lines="1"
+                    android:maxLength="4"/>
 
             </android.support.design.widget.TextInputLayout>
 
