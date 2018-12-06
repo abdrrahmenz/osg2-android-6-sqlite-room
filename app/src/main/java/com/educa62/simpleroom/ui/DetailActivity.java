@@ -1,7 +1,11 @@
 package com.educa62.simpleroom.ui;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -93,9 +97,27 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                 bDone.setVisibility(View.VISIBLE);
                 break;
             case R.id.bDeleteDetail:
-                Toast.makeText(this, "done", Toast.LENGTH_SHORT).show();
-                footballDB.teamsDao().delete(teams);
-                finish();
+                //Creating an alert dialog to confirm delete
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setMessage("Are you sure to delete this ?");
+                alertDialogBuilder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
+                        footballDB.teamsDao().delete(teams);
+                        finish();
+                    }
+                });
+
+                alertDialogBuilder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                    }
+                });
+
+                //Showing the alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
                 break;
             case R.id.bDoneDetail:
                 sTeam = tietTeamDetail.getText().toString();
