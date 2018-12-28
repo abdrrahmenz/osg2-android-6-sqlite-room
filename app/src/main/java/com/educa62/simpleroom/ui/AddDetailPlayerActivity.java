@@ -1,10 +1,8 @@
 package com.educa62.simpleroom.ui;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,19 +12,13 @@ import android.widget.Toast;
 
 import com.educa62.simpleroom.R;
 import com.educa62.simpleroom.db.Constant;
-import com.educa62.simpleroom.db.FootballDatabase;
 import com.educa62.simpleroom.db.PlayerDatabase;
 import com.educa62.simpleroom.entity.Players;
-import com.educa62.simpleroom.entity.Teams;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class AddDetailActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private TextInputEditText tietTeam;
-    private TextInputEditText tietYear;
-    private TextInputEditText tietWebsite;
+public class AddDetailPlayerActivity extends AppCompatActivity implements View.OnClickListener {
+    private TextInputEditText tietPlayer;
+    private TextInputEditText tietPosition;
+    private TextInputEditText tietAge;
     private TextInputEditText tietGender;
     private TextInputEditText tietCountry;
 
@@ -34,13 +26,12 @@ public class AddDetailActivity extends AppCompatActivity implements View.OnClick
     private Button bDelete;
     private Button bDone;
     private Button bAdd;
-    private Button bPlayer;
 
     private Bundle bundle;
 
-    private Teams teams;
+    private Players players;
 
-    private FootballDatabase footballDB;
+    private PlayerDatabase playerDatabase;
 
     private Intent intent;
 
@@ -49,11 +40,10 @@ public class AddDetailActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_detail);
-
-        tietTeam = findViewById(R.id.tietTeam);
-        tietYear = findViewById(R.id.tietYear);
-        tietWebsite = findViewById(R.id.tietWebsite);
+        setContentView(R.layout.activity_add_detail_player);
+        tietPlayer = findViewById(R.id.tietPlayer);
+        tietPosition = findViewById(R.id.tietPosition);
+        tietAge = findViewById(R.id.tietAge);
         tietGender = findViewById(R.id.tietGender);
         tietCountry = findViewById(R.id.tietCountry);
 
@@ -61,9 +51,7 @@ public class AddDetailActivity extends AppCompatActivity implements View.OnClick
         bDelete = findViewById(R.id.bDelete);
         bDone = findViewById(R.id.bDone);
         bAdd = findViewById(R.id.bAdd);
-        bPlayer = findViewById(R.id.bToPlayer);
 
-        bPlayer.setOnClickListener(this);
         bEdit.setOnClickListener(this);
         bDelete.setOnClickListener(this);
         bDone.setOnClickListener(this);
@@ -71,87 +59,81 @@ public class AddDetailActivity extends AppCompatActivity implements View.OnClick
 
         bundle = getIntent().getExtras();
 
-        teams = new Teams();
+        players = new Players();
 
-        footballDB = FootballDatabase.createDatabase(this);
+        playerDatabase = PlayerDatabase.Companion.createDatabase(this);
 
         intent = new Intent();
 
         if (bundle == null) {
-            addActivity();
+            addPlayerData();
         } else {
             detailActivity();
         }
     }
 
-    private void addActivity() {
-
-        setTitle("Add New Data");
-
+    private void addPlayerData() {
+        setTitle("Add New Player");
         bDelete.setVisibility(View.GONE);
         bEdit.setVisibility(View.GONE);
         bDone.setVisibility(View.GONE);
         bAdd.setVisibility(View.VISIBLE);
-        bPlayer.setVisibility(View.GONE);
     }
 
     private void detailActivity() {
-
-        setTitle("Detail Data");
+        setTitle("Detail Player");
 
         int id_ = bundle.getInt(Constant.TAG_ID);
-        String sTeam = bundle.getString(Constant.TAG_TEAM);
-        String sYear = bundle.getString(Constant.TAG_YEAR);
-        String sWebsite = bundle.getString(Constant.TAG_WEBSITE);
+        String sPlayer = bundle.getString(Constant.TAG_PLAYER);
+        String sPosition = bundle.getString(Constant.TAG_POSITION);
+        String sAge = bundle.getString(Constant.TAG_AGE);
         String sGender = bundle.getString(Constant.TAG_GENDER);
         String sCountry = bundle.getString(Constant.TAG_COUNTRY);
 
-        bPlayer.setVisibility(View.VISIBLE);
         bDelete.setVisibility(View.VISIBLE);
         bEdit.setVisibility(View.VISIBLE);
         bDone.setVisibility(View.GONE);
         bAdd.setVisibility(View.GONE);
 
-        tietTeam.setEnabled(false);
-        tietYear.setEnabled(false);
-        tietWebsite.setEnabled(false);
+        tietPlayer.setEnabled(false);
+        tietPosition.setEnabled(false);
+        tietAge.setEnabled(false);
         tietGender.setEnabled(false);
         tietCountry.setEnabled(false);
 
-        tietTeam.setText(sTeam);
-        tietYear.setText(sYear);
-        tietWebsite.setText(sWebsite);
+        tietPlayer.setText(sPlayer);
+        tietPosition.setText(sPosition);
+        tietAge.setText(sAge);
         tietGender.setText(sGender);
         tietCountry.setText(sCountry);
 
-        teams.setId_(id_);
-        teams.setTeam_(sTeam);
-        teams.setYear_(sYear);
-        teams.setWebsite_(sWebsite);
-        teams.setGender_(sGender);
-        teams.setCountry_(sCountry);
+        players.setId(id_);
+        players.setPlayer_(sPlayer);
+        players.setPosition_(sPosition);
+        players.setAge_(sAge);
+        players.setGender_(sGender);
+        players.setCountry_(sCountry);
     }
 
-    @SuppressLint("RestrictedApi")
     @Override
     public void onClick(View v) {
 
-        String sTeamX = tietTeam.getText().toString();
-        String sYearX = tietYear.getText().toString();
-        String sWebsiteX = tietWebsite.getText().toString();
+        String sPlayerX = tietPlayer.getText().toString();
+        String sPositionX = tietPosition.getText().toString();
+        String sAgeX = tietAge.getText().toString();
         String sGenderX = tietGender.getText().toString();
         String sCountryX = tietCountry.getText().toString();
 
-        boolean empty = sTeamX.isEmpty() || sYearX.isEmpty() || sWebsiteX.isEmpty() || sGenderX.isEmpty() || sCountryX.isEmpty();
+        boolean empty = sPlayerX.isEmpty() || sPositionX.isEmpty() || sAgeX.isEmpty() || sGenderX.isEmpty() || sCountryX.isEmpty();
 
-        switch (v.getId()) {
+        switch (v.getId()){
             case R.id.bEdit:
 
                 setTitle("Edit");
 
-                tietTeam.setEnabled(true);
-                tietYear.setEnabled(true);
-                tietWebsite.setEnabled(true);
+                tietPlayer.setEnabled(true);
+                tietPosition.setEnabled(true);
+                tietAge.setEnabled(true);
                 tietGender.setEnabled(true);
                 tietCountry.setEnabled(true);
 
@@ -159,21 +141,20 @@ public class AddDetailActivity extends AppCompatActivity implements View.OnClick
                 bDelete.setVisibility(View.GONE);
                 bDone.setVisibility(View.VISIBLE);
                 bAdd.setVisibility(View.GONE);
-                bPlayer.setVisibility(View.GONE);
 
                 break;
             case R.id.bDelete:
                 alertDialog = new AlertDialog
                         .Builder(this)
                         .setCancelable(false)
-                        .setMessage("Are you sure to delete " + sTeamX + " ?")
+                        .setMessage("Are you sure to delete " + sPlayerX + " ?")
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface arg0, int arg1) {
 
                                 Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
 
-                                footballDB.teamsDao().delete(teams);
+                                playerDatabase.playersDao().delete(players);
 
                                 finish();
 
@@ -190,13 +171,13 @@ public class AddDetailActivity extends AppCompatActivity implements View.OnClick
             case R.id.bDone:
                 if (!empty) {
 
-                    teams.setTeam_(sTeamX);
-                    teams.setYear_(sYearX);
-                    teams.setWebsite_(sWebsiteX);
-                    teams.setGender_(sGenderX);
-                    teams.setCountry_(sCountryX);
+                    players.setPlayer_(sPlayerX);
+                    players.setPosition_(sPositionX);
+                    players.setAge_(sAgeX);
+                    players.setGender_(sGenderX);
+                    players.setCountry_(sCountryX);
 
-                    footballDB.teamsDao().update(teams);
+                    playerDatabase.playersDao().update(players);
 
                     Toast.makeText(this, "done", Toast.LENGTH_SHORT).show();
 
@@ -211,9 +192,9 @@ public class AddDetailActivity extends AppCompatActivity implements View.OnClick
             case R.id.bAdd:
                 if (!empty) {
 
-                    intent.putExtra(Constant.TAG_TEAM, sTeamX);
-                    intent.putExtra(Constant.TAG_YEAR, sYearX);
-                    intent.putExtra(Constant.TAG_WEBSITE, sWebsiteX);
+                    intent.putExtra(Constant.TAG_PLAYER, sPlayerX);
+                    intent.putExtra(Constant.TAG_POSITION, sPositionX);
+                    intent.putExtra(Constant.TAG_AGE, sAgeX);
                     intent.putExtra(Constant.TAG_GENDER, sGenderX);
                     intent.putExtra(Constant.TAG_COUNTRY, sCountryX);
 
@@ -231,9 +212,7 @@ public class AddDetailActivity extends AppCompatActivity implements View.OnClick
 
                 }
                 break;
-            case R.id.bToPlayer:
-                startActivity(new Intent(this, PlayersActivity.class));
-                break;
         }
+
     }
 }

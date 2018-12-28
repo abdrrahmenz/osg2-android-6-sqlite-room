@@ -7,4 +7,8 @@ public class Constant {
     public static final String TAG_WEBSITE = "WEBSITE";
     public static final String TAG_GENDER = "GENDER";
     public static final String TAG_COUNTRY = "COUNTRY";
+
+    public static final String TAG_PLAYER = "PLAYER";
+    public static final String TAG_POSITION = "YEAR";
+    public static final String TAG_AGE = "WEBSITE";
 }

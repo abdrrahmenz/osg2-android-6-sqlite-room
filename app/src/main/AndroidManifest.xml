@@ -10,9 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeDefault"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity
-            android:name=".ui.MainActivity"
-            android:theme="@style/AppThemeNoActionBar">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,6 +21,16 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity" />
+        </activity>
+        <activity android:name=".ui.AddDetailPlayerActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.PlayersActivity" />
+        </activity>
+        <activity android:name=".ui.PlayersActivity">
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".ui.AddDetailActivity" />
         </activity>
     </application>
 
